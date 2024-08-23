@@ -1,0 +1,39 @@
+org: onurleiden
+app: infra
+service: infra
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-west-3
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:PutObject"
+            - "s3:GetObject"
+            - "s3:ListBucket"
+          Resource:
+            - "arn:aws:s3:::mybucket-triggerbench-2"
+            - "arn:aws:s3:::mybucket-triggerbench-2/*"
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:Query"
+            - "dynamodb:Scan"
+            - "dynamodb:GetItem"
+            - "dynamodb:PutItem"
+            - "dynamodb:UpdateItem"
+            - "dynamodb:DeleteItem"
+          Resource:
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/users-table"
+        - Effect: "Allow"
+          Action:
+            - "sns:Publish"
+          Resource: "arn:aws:sns:eu-west-3:199287124841:mySNSTopic"
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: "*"

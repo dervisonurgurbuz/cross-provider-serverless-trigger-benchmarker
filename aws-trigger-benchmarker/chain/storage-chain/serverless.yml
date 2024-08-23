@@ -1,0 +1,52 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: onurleiden
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: storage-chain
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: storage-chain
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-west-3
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+        - "s3:ListBucket"
+        - "logs:*"
+      Resource:
+        - "arn:aws:s3:::mybucket-triggerbench-chain"
+        - "arn:aws:s3:::mybucket-triggerbench-chain/*"
+        - "arn:aws:logs:*:*:*"
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:Query"
+        - "dynamodb:Scan"
+        - "dynamodb:GetItem"
+        - "dynamodb:PutItem"
+        - "dynamodb:UpdateItem"
+        - "dynamodb:DeleteItem"
+        - "logs:CreateLogGroup"
+        - "logs:CreateLogStream"
+        - "logs:PutLogEvents"
+
+      Resource:
+        - "arn:aws:dynamodb:${self:provider.region}:*:table/users-table"
+        - "*"
+
+
+functions:
+  s3Handler:
+    handler: handler.s3Handler
+    events:
+      - s3:
+          bucket: mybucket-triggerbench-chain
+          event: s3:ObjectCreated:Put
+          rules:
+            - prefix: uploads/
+            - suffix: .txt
+
+
+
+

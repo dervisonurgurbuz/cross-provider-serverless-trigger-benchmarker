@@ -1,0 +1,12 @@
+
+
+# Python standard files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyo
+*.pyd
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/

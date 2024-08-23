@@ -1,0 +1,14 @@
+{
+  "name": "infra",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.596.0",
+    "@aws-sdk/lib-dynamodb": "^3.596.0",
+    "aws-sdk": "^2.1639.0",
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "serverless-http": "^3.2.0",
+    "uuid": "^10.0.0"
+  }
+}

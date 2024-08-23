@@ -1,0 +1,37 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: onurleiden
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: storage
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: storage
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-west-3
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+        - "s3:ListBucket"
+        - "logs:*"
+      Resource:
+        - "arn:aws:s3:::mybucket-triggerbench-2"
+        - "arn:aws:s3:::mybucket-triggerbench-2/*"
+        - "arn:aws:logs:*:*:*"
+
+functions:
+  s3Handler:
+    handler: handler.s3Handler
+    events:
+      - s3:
+        bucket: mybucket-triggerbench-2
+        existing: true
+        event: s3:ObjectCreated:Put
+        rules:
+          - prefix: uploads/
+          - suffix: .txt
+
+
+
+

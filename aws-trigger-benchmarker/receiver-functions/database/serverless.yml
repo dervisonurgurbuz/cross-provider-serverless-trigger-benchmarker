@@ -1,0 +1,29 @@
+org: onurleiden
+app: database
+service: database
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-west-3
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:DescribeStream"
+        - "dynamodb:GetRecords"
+        - "dynamodb:GetShardIterator"
+        - "dynamodb:ListStreams"
+        - "logs:CreateLogGroup"
+        - "logs:CreateLogStream"
+        - "logs:PutLogEvents"
+      Resource: "*"
+
+functions:
+  # logChanges:
+  #   handler: handler.logChanges
+  #   events:
+  #     - stream:
+  #         type: dynamodb
+  #         arn:  arn:aws:dynamodb:eu-west-3:199287124841:table/users-table/stream/2024-06-14T11:06:22.141
+  #         batchSize: 5
+  #         startingPosition: LATEST

@@ -1,0 +1,1 @@
+  // "start": "functions-framework --target=triggerProducts"

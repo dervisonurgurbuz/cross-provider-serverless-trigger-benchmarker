@@ -1,0 +1,25 @@
+{
+  "name": "pub-sub-event1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.0.0",
+    "@google-cloud/logging": "^11.0.0"
+  },
+  "devDependencies": {
+    "c8": "^8.0.0",
+    "mocha": "^10.0.0",
+    "sinon": "^16.0.0",
+    "supertest": "^6.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
